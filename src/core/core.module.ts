@@ -1,6 +1,8 @@
+import { Module } from '@nestjs/common';
+
 import { HttpService } from '@core/services/http.service';
 import { PrismaService } from '@core/services/prisma.service';
-import { Module } from '@nestjs/common';
+import { RequesterService } from '@core/services/requester.service';
 
 
 @Module({
@@ -8,11 +10,13 @@ import { Module } from '@nestjs/common';
     controllers: [],
     providers: [
         HttpService,
-        PrismaService
+        PrismaService,
+        RequesterService
     ],
     exports: [
         HttpService,
-        PrismaService
+        PrismaService,
+        RequesterService,
     ],
 })
 export class CoreModule {}

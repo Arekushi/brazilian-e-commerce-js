@@ -18,6 +18,10 @@ export const compare = (a: string, b: string): boolean => {
     return a.localeCompare(b, undefined, { sensitivity: 'accent'}) === 0;
 };
 
-export const isEmptyOrSpaces = (str: string) => {
+export const isEmptyOrSpaces = (str: string): boolean => {
     return str === null || str === undefined || str.match(/^ *$/) !== null;
+};
+
+export const onlyAlpha =(str: string): string => {
+    return str.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
 };

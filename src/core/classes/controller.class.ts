@@ -1,26 +1,19 @@
-import { IRoute } from '@core/interfaces/iroute.interface';
-import { Router } from 'express';
+import { Service } from '@core/classes/service.class';
+import { Body, Post } from '@nestjs/common';
+import { ApiResponse } from '@nestjs/swagger';
 
 
-export abstract class Controller {
+export abstract class BaseController {
 
-    public router: Router = Router();
-    public abstract path: string;
-    protected abstract readonly routes: IRoute[];
+	constructor(
+        private readonly service: Service
+    ) { }
 
-    setRoutes(): Router {
-        for (const route of this.routes) {
-            for (const middleware of route.localMiddleware) {
-                this.router.use(route.path, middleware);
-            }
-
-            try {
-                this.router[route.method](route.path, route.handler.bind(this));
-            } catch (err) {
-                console.error('Not a valid method');
-            }
-        }
-
-        return this.router;
-    }
+	@Post()
+	@ApiResponse({ status: 201, description: 'The record has been successfully created.'})
+	@ApiResponse({ status: 403, description: 'Forbidden.'})
+	@ApiResponse({ status: 400, description: 'Bad Request.'})
+	async create(@Body() entity: any): Promise<any> {
+		return await this.service.create(entity);
+	}
 }

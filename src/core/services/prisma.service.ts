@@ -2,6 +2,7 @@ import { ExceptionActionAspect } from '@core/aspects/exception-action.aspect';
 import { UseAspect, Advice } from '@arekushii/ts-aspect';
 import { PrismaClient } from '@prisma/client';
 import {
+    INestApplication,
     Injectable,
     OnModuleDestroy,
     OnModuleInit
@@ -21,4 +22,11 @@ export class PrismaService
     async onModuleDestroy(): Promise<void> {
         await this.$disconnect();
     }
+
+    // eslint-disable-next-line @typescript-eslint/require-await
+    async enableShutdownHooks(app: INestApplication) {
+        this.$on('beforeExit', async () => {
+          await app.close();
+        });
+      }
 }
