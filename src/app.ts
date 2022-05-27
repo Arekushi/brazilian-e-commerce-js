@@ -36,6 +36,10 @@ export class App {
             consola.success(
                 `Node Express server listening on http://localhost:${this.port}`
             );
+
+            consola.success(
+                `Swagger API on http://localhost:${this.port}/api`
+            );
         });
     }
 }
