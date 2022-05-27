@@ -1,0 +1,145 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// [Models]
+model Geolocation {
+  zip_code_prefix String @id @db.Char(5)
+  city String
+  state String @db.Char(2)
+  latitude Float
+  longtude Float
+
+  customers Customer[]
+  sellers Seller[]
+
+	@@map("geolocation")
+}
+
+model Customer {
+  id String @id @db.Char(32)
+  unique_id String @unique @db.Char(32)
+  orders Order[]
+
+  geolocation Geolocation? @relation(fields: [geolocation_zip_code], references: [zip_code_prefix])
+  geolocation_zip_code String? @db.Char(5)
+
+	@@map("customer")
+}
+
+model Seller {
+  id String @id @db.Char(32)
+  orders OrderItem[]
+
+  geolocation Geolocation? @relation(fields: [geolocation_zip_code], references: [zip_code_prefix])
+  geolocation_zip_code String? @db.Char(5)
+
+	@@map("seller")
+}
+
+model Product {
+  id String @id @db.Char(32)
+  category_name String
+  name_lenght Int
+  description_lenght Int
+  photos_quantity Int
+  weight_g Float
+  length_cm Float
+  height_cm Float
+  width_cm Float
+  orders OrderItem[]
+
+	@@map("product")
+}
+
+model OrderStatus {
+  id Int @id @default(autoincrement())
+  description String
+  orders Order[]
+
+	@@map("order_status")
+}
+
+model PaymentType {
+  id Int @id @default(autoincrement())
+  type String
+  payments OrderPayment[]
+
+	@@map("payment_type")
+}
+
+model Order {
+  id String @id @db.Char(32)
+  purchase_timestamp DateTime
+  approved_at DateTime?
+  delivered_carrier_date DateTime?
+  delivered_customer_date DateTime?
+  estimated_delivery_date DateTime?
+
+  customer Customer @relation(fields: [customer_id], references: [id])
+  customer_id String
+
+  status OrderStatus @relation(fields: [status_id], references: [id])
+  status_id Int
+
+  review OrderReview?
+  payment OrderPayment?
+  items OrderItem[]
+
+	@@map("order")
+}
+
+model OrderReview {
+  id String @id @db.Char(32)
+  score Int
+  comment_title String?
+  comment_message String?
+  creation_date DateTime
+  answer_date DateTime?
+
+  order Order @relation(fields: [order_id], references: [id])
+  order_id String
+
+	@@map("order_review")
+}
+
+model OrderPayment {
+  id String @id @db.Char(32)
+  sequential Int
+  installments Int
+  value Float
+
+  type PaymentType @relation(fields: [type_id], references: [id])
+  type_id Int
+
+  order Order @relation(fields: [order_id], references: [id])
+  order_id String
+
+	@@map("order_payment")
+}
+
+model OrderItem {
+  id String @id @db.Char(32)
+  shipping_limit_date DateTime
+  price Float
+  freight_value Float
+
+  order Order @relation(fields: [order_id], references: [id])
+  order_id String
+
+  product Product @relation(fields: [product_id], references: [id])
+  product_id String
+
+  seller Seller @relation(fields: [seller_id], references: [id])
+  seller_id String
+
+	@@map("order_item")
+}

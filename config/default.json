@@ -1,0 +1,9 @@
+{
+    "app-name": "Brazilian E-Commerce NodeJS API",
+    "port": "8787",
+    "swagger": {
+        "title": "Brazilian E-Commerce Node.JS API",
+        "description": "API do E-Commerce do Brasil.",
+        "version": "1.0"
+    }
+}

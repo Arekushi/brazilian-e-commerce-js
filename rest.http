@@ -1,0 +1,11 @@
+### Test
+GET http://localhost:8787/test
+
+### OpenAPI
+GET http://localhost:8787/api
+
+### Ping
+GET http://localhost:8787/api/ping
+
+### Test
+GET http://localhost:8787/api/test

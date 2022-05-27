@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "rootDir": ".",
+    "outDir": "./dist",
+    "declarationDir": "./dist",
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@core/*": ["./src/core/*"],
+      "@modules/*": ["./src/modules/*"],
+      "@database/*": ["./src/modules/database/*"]
+    },
+    "module": "CommonJS",
+    "target": "ES2017",
+    "moduleResolution": "node",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false
+  },
+  "lib": [
+    "ES2017",
+    "ES6",
+    "ESNext"
+  ],
+  "include": [
+      "src/**/*"
+  ],
+  "exclude": [
+      "node_modules",
+      "dist"
+  ]
+}
