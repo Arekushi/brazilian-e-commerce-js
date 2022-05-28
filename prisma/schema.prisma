@@ -12,11 +12,12 @@ datasource db {
 
 // [Models]
 model Geolocation {
-  zip_code_prefix String @id @db.Char(5)
+  id Int @id @default(autoincrement())
+  zip_code_prefix String @db.Char(5)
   city String
   state String @db.Char(2)
-  latitude Float
-  longtude Float
+  latitude Float?
+  longtude Float?
 
   customers Customer[]
   sellers Seller[]
@@ -29,8 +30,8 @@ model Customer {
   unique_id String @unique @db.Char(32)
   orders Order[]
 
-  geolocation Geolocation? @relation(fields: [geolocation_zip_code], references: [zip_code_prefix])
-  geolocation_zip_code String? @db.Char(5)
+  geolocation Geolocation? @relation(fields: [geolocation_id], references: [id])
+  geolocation_id Int?
 
 	@@map("customer")
 }
@@ -39,8 +40,8 @@ model Seller {
   id String @id @db.Char(32)
   orders OrderItem[]
 
-  geolocation Geolocation? @relation(fields: [geolocation_zip_code], references: [zip_code_prefix])
-  geolocation_zip_code String? @db.Char(5)
+  geolocation Geolocation? @relation(fields: [geolocation_id], references: [id])
+  geolocation_id Int?
 
 	@@map("seller")
 }

@@ -10,7 +10,7 @@ export const run = async (): Promise<void> => {
 };
 
 run().catch(
-    () => {
-        consola.error('Error!');
+    (err) => {
+        consola.error(err);
     }
 );

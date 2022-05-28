@@ -6,7 +6,7 @@ import { ApiResponse } from '@nestjs/swagger';
 export abstract class BaseController {
 
 	constructor(
-        private readonly service: Service
+        protected service: Service
     ) { }
 
 	@Post()
@@ -14,6 +14,6 @@ export abstract class BaseController {
 	@ApiResponse({ status: 403, description: 'Forbidden.'})
 	@ApiResponse({ status: 400, description: 'Bad Request.'})
 	async create(@Body() entity: any): Promise<any> {
-		return await this.service.create(entity);
+		// return await this.service.create(entity);
 	}
 }

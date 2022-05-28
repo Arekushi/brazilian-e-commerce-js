@@ -8,7 +8,8 @@
       "@src/*": ["./src/*"],
       "@core/*": ["./src/core/*"],
       "@modules/*": ["./src/modules/*"],
-      "@database/*": ["./src/modules/database/*"]
+      "@main/*": ["./src/modules/main/*"],
+      "@reader/*": ["./src/modules/reader/*"]
     },
     "module": "CommonJS",
     "target": "ES2017",
