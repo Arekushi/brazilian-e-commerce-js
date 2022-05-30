@@ -14,10 +14,10 @@ datasource db {
 model Geolocation {
   id Int @id @default(autoincrement())
   zip_code_prefix String @db.Char(5)
-  city String
+  city String @db.VarChar(255)
   state String @db.Char(2)
   latitude Float?
-  longtude Float?
+  longitude Float?
 
   customers Customer[]
   sellers Seller[]
@@ -48,7 +48,7 @@ model Seller {
 
 model Product {
   id String @id @db.Char(32)
-  category_name String
+  category_name String @db.VarChar(255)
   name_lenght Int
   description_lenght Int
   photos_quantity Int
@@ -63,7 +63,7 @@ model Product {
 
 model OrderStatus {
   id Int @id @default(autoincrement())
-  description String
+  description String @db.VarChar(100)
   orders Order[]
 
 	@@map("order_status")
@@ -71,7 +71,7 @@ model OrderStatus {
 
 model PaymentType {
   id Int @id @default(autoincrement())
-  type String
+  type String @db.VarChar(100)
   payments OrderPayment[]
 
 	@@map("payment_type")
@@ -86,7 +86,7 @@ model Order {
   estimated_delivery_date DateTime?
 
   customer Customer @relation(fields: [customer_id], references: [id])
-  customer_id String
+  customer_id String @db.Char(32)
 
   status OrderStatus @relation(fields: [status_id], references: [id])
   status_id Int
@@ -101,8 +101,8 @@ model Order {
 model OrderReview {
   id String @id @db.Char(32)
   score Int
-  comment_title String?
-  comment_message String?
+  comment_title String? @db.VarChar(255)
+  comment_message String? @db.VarChar(500)
   creation_date DateTime
   answer_date DateTime?
 
@@ -122,7 +122,7 @@ model OrderPayment {
   type_id Int
 
   order Order @relation(fields: [order_id], references: [id])
-  order_id String
+  order_id String @db.Char(32)
 
 	@@map("order_payment")
 }
@@ -134,13 +134,13 @@ model OrderItem {
   freight_value Float
 
   order Order @relation(fields: [order_id], references: [id])
-  order_id String
+  order_id String @db.Char(32)
 
   product Product @relation(fields: [product_id], references: [id])
-  product_id String
+  product_id String @db.Char(32)
 
   seller Seller @relation(fields: [seller_id], references: [id])
-  seller_id String
+  seller_id String @db.Char(32)
 
 	@@map("order_item")
 }

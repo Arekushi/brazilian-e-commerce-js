@@ -1,5 +1,4 @@
 import { Case } from '@core/enums/string-case.enum';
-import { toLower, toUpper } from '@core/utils/string.util';
 import { Aspect, AspectContext } from '@arekushii/ts-aspect';
 
 
@@ -17,13 +16,13 @@ export class ToCaseParametersAspect implements Aspect {
 
         switch (caseParam) {
             case Case.LOWER:
-                return strings.map(str => toLower(str));
+                return strings.map((str: string) => str.toLocaleLowerCase());
 
             case Case.UPPER:
-                return strings.map(str => toUpper(str));
+                return strings.map((str: string)  => str.toLocaleUpperCase());
 
             default:
-                return strings.map(str => toLower(str));
+                return strings.map((str: string)  => str.toLocaleLowerCase());
         }
     }
 }

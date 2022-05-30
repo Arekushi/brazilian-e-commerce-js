@@ -1,9 +1,21 @@
 {
+    "app": {
+        "swagger": {
+            "title": "Brazilian E-Commerce Node.JS API",
+            "route": "api",
+            "description": "API do E-Commerce do Brasil.",
+            "version": "1.0"
+        }
+    },
     "app-name": "Brazilian E-Commerce NodeJS API",
-    "port": "8787",
-    "swagger": {
-        "title": "Brazilian E-Commerce Node.JS API",
-        "description": "API do E-Commerce do Brasil.",
-        "version": "1.0"
+    "reader": {
+        "filePath": "datasets",
+        "options": {
+            "fromLine": 2,
+            "delimiter": ",",
+            "encoding": "utf-8",
+            "trim": true,
+            "relax_column_count": true
+        }
     }
 }

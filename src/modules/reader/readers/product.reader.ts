@@ -7,9 +7,9 @@ import { ReaderCSV } from '@reader/classes/reader-csv.class';
 export class ProductReader extends ReaderCSV<ProductCSV> {
 
     constructor() {
-        super(
-            'olist_products_dataset.csv',
-            {
+        super({
+            filename: 'olist_products_dataset.csv',
+            header: {
                 product_id: 'STRING',
                 product_category_name: 'STRING',
                 product_name_lenght: 'INT',
@@ -20,6 +20,6 @@ export class ProductReader extends ReaderCSV<ProductCSV> {
                 product_height_cm: 'INT',
                 product_width_cm: 'INT'
             }
-        );
+        });
     }
 }

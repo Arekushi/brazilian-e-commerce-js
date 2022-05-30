@@ -7,15 +7,15 @@ import { ReaderCSV } from '@reader/classes/reader-csv.class';
 export class OrderPaymentReader extends ReaderCSV<OrderPaymentCSV> {
 
     constructor() {
-        super(
-            'olist_order_payments_dataset.csv',
-            {
+        super({
+            filename: 'olist_order_payments_dataset.csv',
+            header: {
                 order_id: 'STRING',
                 payment_sequential: 'INT',
                 payment_type: 'STRING',
                 payment_installments: 'INT',
                 payment_value: 'FLOAT'
             }
-        );
+        });
     }
 }

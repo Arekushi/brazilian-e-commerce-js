@@ -7,9 +7,9 @@ import { ReaderCSV } from '@reader/classes/reader-csv.class';
 export class OrderReviewReader extends ReaderCSV<OrderReviewCSV> {
 
     constructor() {
-        super(
-            'olist_order_reviews_dataset.csv',
-            {
+        super({
+            filename: 'olist_order_reviews_dataset.csv',
+            header: {
                 review_id: 'STRING',
                 order_id: 'STRING',
                 review_score: 'INT',
@@ -18,6 +18,6 @@ export class OrderReviewReader extends ReaderCSV<OrderReviewCSV> {
                 review_creation_date: 'DATE',
                 review_answer_timestamp: 'DATE'
             }
-        );
+        });
     }
 }

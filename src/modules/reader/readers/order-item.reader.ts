@@ -7,9 +7,9 @@ import { ReaderCSV } from '@reader/classes/reader-csv.class';
 export class OrderItemReader extends ReaderCSV<OrderItemCSV> {
 
     constructor() {
-        super(
-            'olist_order_items_dataset.csv',
-            {
+        super({
+            filename: 'olist_order_items_dataset.csv',
+            header: {
                 order_id: 'STRING',
                 order_item_id: 'STRING',
                 product_id: 'STRING',
@@ -18,6 +18,6 @@ export class OrderItemReader extends ReaderCSV<OrderItemCSV> {
                 price: 'FLOAT',
                 freight_value: 'FLOAT'
             }
-        );
+        });
     }
 }

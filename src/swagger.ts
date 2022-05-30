@@ -1,22 +1,28 @@
-import config from 'config';
-
 import { SwaggerConfig } from '@core/interfaces/swagger-config.interface';
 import { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 
-const cfg: SwaggerConfig = config.util.toObject(config.get('swagger'));
-
-export const setupSwagger = (app: INestApplication) => {
-    SwaggerModule.setup('api', app, createDocument(app));
+export const setupSwagger = (
+    app: INestApplication,
+    cfg: SwaggerConfig
+) => {
+    try {
+        SwaggerModule.setup(cfg.route, app, createDocument(app, cfg));
+    } catch (err) {
+        console.log(err);
+    }
 };
 
-export const createDocument = (app: INestApplication) => {
-    return SwaggerModule.createDocument(
-        app, new DocumentBuilder()
+const createDocument = (
+    app: INestApplication,
+    cfg: SwaggerConfig
+) => {
+    const documentConfig = new DocumentBuilder()
         .setTitle(cfg.title)
         .setDescription(cfg.description)
         .setVersion(cfg.version)
-        .build()
-    );
+        .build();
+
+    return SwaggerModule.createDocument(app, documentConfig);
 };

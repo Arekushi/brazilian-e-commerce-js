@@ -9,7 +9,9 @@
       "@core/*": ["./src/core/*"],
       "@modules/*": ["./src/modules/*"],
       "@main/*": ["./src/modules/main/*"],
-      "@reader/*": ["./src/modules/reader/*"]
+      "@reader/*": ["./src/modules/reader/*"],
+      "@writer/*": ["./src/modules/writer/*"],
+      "@cli/*": ["src/modules/cli/*"]
     },
     "module": "CommonJS",
     "target": "ES2017",

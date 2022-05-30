@@ -1,3 +1,7 @@
 {
-    
+    "app": {
+        "globalPrefix": "api",
+        "url": "http://localhost",
+        "port": "8787"
+    }
 }

@@ -1,4 +1,4 @@
-import { DataType } from '@main/types/data-type.type';
+import { DataType } from '@reader/types/data-type.type';
 
 
 export type HeaderConfig = {

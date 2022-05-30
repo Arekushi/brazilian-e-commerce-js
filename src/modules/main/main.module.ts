@@ -13,13 +13,10 @@ import { OrderService } from '@main/services/order.service';
 import { ProductService } from '@main/services/product.service';
 import { SellerService } from '@main/services/seller.service';
 
-import { ReaderModule } from '@reader/reader.module';
-
 
 @Module({
     imports: [
-        CoreModule,
-        ReaderModule
+        CoreModule
     ],
     controllers: [
         CustomerController,
@@ -35,5 +32,15 @@ import { ReaderModule } from '@reader/reader.module';
         ProductService,
         SellerService
     ],
+    exports: [
+        CustomerService,
+        GeolocationService,
+        OrderItemService,
+        OrderPaymentService,
+        OrderReviewService,
+        OrderService,
+        ProductService,
+        SellerService
+    ]
 })
 export class MainModule {}

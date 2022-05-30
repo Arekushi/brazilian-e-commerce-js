@@ -1,19 +1,20 @@
 -- CreateTable
 CREATE TABLE "geolocation" (
+    "id" SERIAL NOT NULL,
     "zip_code_prefix" CHAR(5) NOT NULL,
     "city" TEXT NOT NULL,
     "state" CHAR(2) NOT NULL,
-    "latitude" DOUBLE PRECISION NOT NULL,
-    "longtude" DOUBLE PRECISION NOT NULL,
+    "latitude" DOUBLE PRECISION,
+    "longitude" DOUBLE PRECISION,
 
-    CONSTRAINT "geolocation_pkey" PRIMARY KEY ("zip_code_prefix")
+    CONSTRAINT "geolocation_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "customer" (
     "id" CHAR(32) NOT NULL,
     "unique_id" CHAR(32) NOT NULL,
-    "geolocation_zip_code" CHAR(5),
+    "geolocation_id" INTEGER,
 
     CONSTRAINT "customer_pkey" PRIMARY KEY ("id")
 );
@@ -21,7 +22,7 @@ CREATE TABLE "customer" (
 -- CreateTable
 CREATE TABLE "seller" (
     "id" CHAR(32) NOT NULL,
-    "geolocation_zip_code" CHAR(5),
+    "geolocation_id" INTEGER,
 
     CONSTRAINT "seller_pkey" PRIMARY KEY ("id")
 );
@@ -119,10 +120,10 @@ CREATE UNIQUE INDEX "order_review_order_id_key" ON "order_review"("order_id");
 CREATE UNIQUE INDEX "order_payment_order_id_key" ON "order_payment"("order_id");
 
 -- AddForeignKey
-ALTER TABLE "customer" ADD CONSTRAINT "customer_geolocation_zip_code_fkey" FOREIGN KEY ("geolocation_zip_code") REFERENCES "geolocation"("zip_code_prefix") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "customer" ADD CONSTRAINT "customer_geolocation_id_fkey" FOREIGN KEY ("geolocation_id") REFERENCES "geolocation"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "seller" ADD CONSTRAINT "seller_geolocation_zip_code_fkey" FOREIGN KEY ("geolocation_zip_code") REFERENCES "geolocation"("zip_code_prefix") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "seller" ADD CONSTRAINT "seller_geolocation_id_fkey" FOREIGN KEY ("geolocation_id") REFERENCES "geolocation"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "order" ADD CONSTRAINT "order_customer_id_fkey" FOREIGN KEY ("customer_id") REFERENCES "customer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

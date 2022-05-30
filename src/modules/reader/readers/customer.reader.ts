@@ -7,15 +7,15 @@ import { ReaderCSV } from '@reader/classes/reader-csv.class';
 export class CustomerReader extends ReaderCSV<CustomerCSV> {
 
     constructor() {
-        super(
-            'olist_customers_dataset.csv',
-            {
+        super({
+            filename: 'olist_customers_dataset.csv',
+            header: {
                 customer_id: 'STRING',
                 customer_unique_id: 'STRING',
                 customer_zip_code_prefix: 'STRING',
                 customer_city: 'STRING',
                 customer_state: 'STRING'
             }
-        );
+        });
     }
 }

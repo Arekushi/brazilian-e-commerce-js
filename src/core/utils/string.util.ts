@@ -1,15 +1,3 @@
-export const toLower = (str: string): string => {
-    return str.toLowerCase();
-};
-
-export const onlyNumbers = (str: string): string => {
-    return str.replace(/\D/g, '');
-};
-
-export const toUpper = (str: string): string => {
-    return str.toUpperCase();
-};
-
 export const toArray = (str: string): any[] => {
     return str as unknown as any[];
 };
@@ -23,5 +11,9 @@ export const isEmptyOrSpaces = (str: string): boolean => {
 };
 
 export const onlyAlpha =(str: string): string => {
-    return str.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+    return str.replace(/[^a-zA-Z0-9]/g, '');
+};
+
+export const onlyNumbers = (str: string): string => {
+    return str.replace(/\D/g, '');
 };

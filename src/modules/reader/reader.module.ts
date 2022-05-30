@@ -8,6 +8,7 @@ import { OrderReviewReader } from './readers/order-review.reader';
 import { OrderReader } from './readers/order.reader';
 import { ProductReader } from './readers/product.reader';
 import { SellerReader } from './readers/seller.reader';
+import { BrazilCitiesReader } from './readers/brazil-cities.reader';
 
 @Module({
     imports: [],
@@ -21,6 +22,7 @@ import { SellerReader } from './readers/seller.reader';
         OrderReader,
         ProductReader,
         SellerReader,
+        BrazilCitiesReader
     ],
     exports: [
         CustomerReader,
@@ -31,6 +33,7 @@ import { SellerReader } from './readers/seller.reader';
         OrderReader,
         ProductReader,
         SellerReader,
+        BrazilCitiesReader
     ]
 })
 export class ReaderModule {}

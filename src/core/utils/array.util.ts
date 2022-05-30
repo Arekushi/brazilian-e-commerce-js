@@ -13,3 +13,7 @@ export const remove = (array: any[], item: any): void => {
         array.splice(index, 1);
     }
 };
+
+export const hasValue = (array: any[]): boolean => {
+    return Array.isArray(array) && array?.length > 0;
+};

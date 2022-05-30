@@ -8,4 +8,4 @@ GET http://localhost:8787/api
 GET http://localhost:8787/api/ping
 
 ### Test
-GET http://localhost:8787/api/test
+GET http://localhost:8787/api/customer/test
