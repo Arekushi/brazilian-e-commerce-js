@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { HttpService } from '@core/services/http.service';
 import { PrismaService } from '@core/services/prisma.service';
 import { RequesterService } from '@core/services/requester.service';
+import { UnzipService } from '@core/services/unzip.service';
 
 
 @Module({
@@ -11,12 +12,14 @@ import { RequesterService } from '@core/services/requester.service';
     providers: [
         HttpService,
         PrismaService,
-        RequesterService
+        RequesterService,
+        UnzipService
     ],
     exports: [
         HttpService,
         PrismaService,
         RequesterService,
+        UnzipService
     ],
 })
 export class CoreModule {}

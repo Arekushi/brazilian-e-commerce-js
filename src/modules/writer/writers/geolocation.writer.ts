@@ -18,23 +18,23 @@ export class GeolocationWriter extends Writer<GeolocationCSV> {
         super(service);
     }
 
-    async write(geolocations: GeolocationCSV[]): Promise<void> {
-        const data: Prisma.GeolocationCreateManyInput[] = [];
-
-        for (const geo of geolocations) {
-            data.push({
+    map(
+        geolocations: GeolocationCSV[]
+    ): Prisma.GeolocationCreateManyInput[] {
+        return geolocations.map((geo) => {
+            return {
                 city: this.transformCityName(geo.geolocation_city),
                 latitude: geo.geolocation_lat,
                 longitude: geo.geolocation_lng,
                 state: geo.geolocation_state,
                 zip_code_prefix: geo.geolocation_zip_code_prefix
-            });
-        }
-
-        await this.service.createMany(data);
+            };
+        });
     }
 
-    async updateName(cities: BrazilCitiesCSV[]): Promise<void> {
+    async updateName(
+        cities: BrazilCitiesCSV[]
+    ): Promise<void> {
         const citiesMap = new Map(cities.map(obj => {
             return [this.transformCityName(obj.city), obj.city];
         }));

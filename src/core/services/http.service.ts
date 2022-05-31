@@ -10,8 +10,6 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class HttpService {
 
-  constructor() { }
-
   public get<T>(
     url: string,
     options?: HTTPOptions
@@ -73,11 +71,12 @@ export class HttpService {
   private request<T>(
     type: HTTPRequestType,
     url: string,
-    options: HTTPOptions = {}
+    options: HTTPOptions
   ): any {
     const {
       body,
       headers,
+      responseType
     } = options;
 
     return from(
@@ -85,7 +84,8 @@ export class HttpService {
             method: type,
             data: body,
             url,
-            headers
+            headers,
+            responseType
         })
     )
     .pipe(
@@ -97,7 +97,8 @@ export class HttpService {
             ok: res.status >= 200 && res.status <= 299,
             statusCode: res.status,
             statusText: res.statusText,
-            data: res.data
+            data: res.data,
+            headers: res.headers
           };
         }),
         catchError(error => {
@@ -107,6 +108,7 @@ export class HttpService {
                     statusCode: error.status,
                     statusText: error.statusText,
                     data: error.error,
+                    headers: error.headers,
                     name: error.name,
                     message: error.message
                 };

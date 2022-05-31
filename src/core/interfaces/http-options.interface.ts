@@ -7,7 +7,7 @@ type Params = {
 
 type Observer = 'body' | 'events' | 'response';
 
-type ResponseType = 'arraybuffer' | 'blob' | 'json' | 'text';
+type ResponseType = 'arraybuffer' | 'blob' | 'json' | 'text' | 'stream';
 
 
 export interface HTTPOptions {

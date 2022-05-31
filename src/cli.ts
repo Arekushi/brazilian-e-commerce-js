@@ -1,7 +1,7 @@
 import consola from 'consola';
 
-import { NestFactory } from '@nestjs/core';
 import { CommandModule, CommandService } from 'nestjs-command';
+import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@src/app.module';
 
 

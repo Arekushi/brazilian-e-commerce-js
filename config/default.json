@@ -17,5 +17,16 @@
             "trim": true,
             "relax_column_count": true
         }
+    },
+    "datasets": {
+        "zip": {
+            "url": "https://drive.google.com/uc?export=download&id=1IJco8KTt-9zaCCQ5t2pT9ly01SxOjTid&confirm=t",
+            "outputPath": "datasets",
+            "deleteFile": true,
+            "file": {
+                "filename": "datasets.zip",
+                "outputPath": "datasets"
+            }
+        }
     }
 }

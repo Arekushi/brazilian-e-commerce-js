@@ -3,10 +3,10 @@ import config from 'config';
 import toBoolean from 'to-boolean';
 import appRoot from 'app-root-path';
 
+import { CastingContext, parse } from 'csv-parse';
 import { merge } from '@core/utils/object.util';
 import { hasValue } from '@core/utils/array.util';
 import { ReaderCSVProps } from '@reader/props/reader-csv.props';
-import { CastingContext, parse } from 'csv-parse';
 import { UseAspect, Advice } from '@arekushii/ts-aspect';
 import { ExceptionActionAspect } from '@core/aspects/exception-action.aspect';
 
@@ -109,7 +109,7 @@ export abstract class ReaderCSV<T> {
         reject(err);
     }
 
-    cast(value: string, context: CastingContext): any {
+    cast(value: string, context: CastingContext): unknown {
         const column = String(context.column);
 
         if (this.#integers.includes(column)) {

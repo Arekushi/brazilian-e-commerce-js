@@ -202,6 +202,7 @@ module.exports = {
         '@typescript-eslint/no-unsafe-return': 'off',
         '@typescript-eslint/no-unsafe-argument': 'off',
         '@typescript-eslint/restrict-template-expressions': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
         'complexity': 'off',
         'no-empty': 'off',
         'no-empty-function': 'off',
