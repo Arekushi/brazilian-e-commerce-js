@@ -12,135 +12,148 @@ datasource db {
 
 // [Models]
 model Geolocation {
-  id Int @id @default(autoincrement())
+  id              Int    @id @default(autoincrement())
   zip_code_prefix String @db.Char(5)
-  city String @db.VarChar(255)
-  state String @db.Char(2)
-  latitude Float?
-  longitude Float?
+  city            String @db.VarChar(255)
+  state           String @db.Char(2)
+  latitude        Float?
+  longitude       Float?
 
   customers Customer[]
-  sellers Seller[]
+  sellers   Seller[]
 
-	@@map("geolocation")
+  @@map("geolocation")
 }
 
 model Customer {
-  id String @id @db.Char(32)
-  unique_id String @unique @db.Char(32)
-  orders Order[]
+  id        String  @id @db.Char(32)
+  unique_id String  @unique @db.Char(32)
+  name      String? @db.VarChar(255)
+  orders    Order[]
 
-  geolocation Geolocation? @relation(fields: [geolocation_id], references: [id])
+  geolocation    Geolocation? @relation(fields: [geolocation_id], references: [id])
   geolocation_id Int?
 
-	@@map("customer")
+  @@map("customer")
 }
 
 model Seller {
-  id String @id @db.Char(32)
+  id     String      @id @db.Char(32)
+  name   String?     @db.VarChar(255)
   orders OrderItem[]
 
-  geolocation Geolocation? @relation(fields: [geolocation_id], references: [id])
+  geolocation    Geolocation? @relation(fields: [geolocation_id], references: [id])
   geolocation_id Int?
 
-	@@map("seller")
+  @@map("seller")
+}
+
+model ProductCategory {
+  id       Int       @id @default(autoincrement())
+  name     String?   @unique @db.VarChar(255)
+  products Product[]
+
+  @@map("product_category")
 }
 
 model Product {
-  id String @id @db.Char(32)
-  category_name String @db.VarChar(255)
-  name_lenght Int
-  description_lenght Int
-  photos_quantity Int
-  weight_g Float
-  length_cm Float
-  height_cm Float
-  width_cm Float
-  orders OrderItem[]
+  id                 String      @id @db.Char(32)
+  name               String?     @db.VarChar(255)
+  name_lenght        Int?
+  description_lenght Int?
+  photos_quantity    Int?
+  weight_g           Float?
+  length_cm          Float?
+  height_cm          Float?
+  width_cm           Float?
+  orders             OrderItem[]
 
-	@@map("product")
+  product_category    ProductCategory? @relation(fields: [product_category_id], references: [id])
+  product_category_id Int?
+
+  @@map("product")
 }
 
 model OrderStatus {
-  id Int @id @default(autoincrement())
-  description String @db.VarChar(100)
-  orders Order[]
+  id          Int     @id @default(autoincrement())
+  description String  @db.VarChar(100)
+  orders      Order[]
 
-	@@map("order_status")
+  @@map("order_status")
 }
 
 model PaymentType {
-  id Int @id @default(autoincrement())
-  type String @db.VarChar(100)
+  id       Int            @id @default(autoincrement())
+  type     String         @db.VarChar(100)
   payments OrderPayment[]
 
-	@@map("payment_type")
+  @@map("payment_type")
 }
 
 model Order {
-  id String @id @db.Char(32)
-  purchase_timestamp DateTime
-  approved_at DateTime?
-  delivered_carrier_date DateTime?
+  id                      String    @id @db.Char(32)
+  purchase_timestamp      DateTime
+  approved_at             DateTime?
+  delivered_carrier_date  DateTime?
   delivered_customer_date DateTime?
   estimated_delivery_date DateTime?
 
-  customer Customer @relation(fields: [customer_id], references: [id])
-  customer_id String @db.Char(32)
+  customer    Customer @relation(fields: [customer_id], references: [id])
+  customer_id String   @db.Char(32)
 
-  status OrderStatus @relation(fields: [status_id], references: [id])
+  status    OrderStatus @relation(fields: [status_id], references: [id])
   status_id Int
 
-  review OrderReview?
+  review  OrderReview?
   payment OrderPayment?
-  items OrderItem[]
+  items   OrderItem[]
 
-	@@map("order")
+  @@map("order")
 }
 
 model OrderReview {
-  id String @id @db.Char(32)
-  score Int
-  comment_title String? @db.VarChar(255)
-  comment_message String? @db.VarChar(500)
-  creation_date DateTime
-  answer_date DateTime?
+  id              String    @id @db.Char(32)
+  score           Int
+  comment_title   String?   @db.VarChar(255)
+  comment_message String?   @db.VarChar(500)
+  creation_date   DateTime
+  answer_date     DateTime?
 
-  order Order @relation(fields: [order_id], references: [id])
-  order_id String
+  order    Order  @relation(fields: [order_id], references: [id])
+  order_id String @unique
 
-	@@map("order_review")
+  @@map("order_review")
 }
 
 model OrderPayment {
-  id String @id @db.Char(32)
-  sequential Int
+  id           String @id @db.Char(32)
+  sequential   Int
   installments Int
-  value Float
+  value        Float
 
-  type PaymentType @relation(fields: [type_id], references: [id])
+  type    PaymentType @relation(fields: [type_id], references: [id])
   type_id Int
 
-  order Order @relation(fields: [order_id], references: [id])
-  order_id String @db.Char(32)
+  order    Order  @relation(fields: [order_id], references: [id])
+  order_id String @unique @db.Char(32)
 
-	@@map("order_payment")
+  @@map("order_payment")
 }
 
 model OrderItem {
-  id String @id @db.Char(32)
+  id                  String   @id @db.Char(32)
   shipping_limit_date DateTime
-  price Float
-  freight_value Float
+  price               Float
+  freight_value       Float
 
-  order Order @relation(fields: [order_id], references: [id])
+  order    Order  @relation(fields: [order_id], references: [id])
   order_id String @db.Char(32)
 
-  product Product @relation(fields: [product_id], references: [id])
-  product_id String @db.Char(32)
+  product    Product @relation(fields: [product_id], references: [id])
+  product_id String  @db.Char(32)
 
-  seller Seller @relation(fields: [seller_id], references: [id])
+  seller    Seller @relation(fields: [seller_id], references: [id])
   seller_id String @db.Char(32)
 
-	@@map("order_item")
+  @@map("order_item")
 }

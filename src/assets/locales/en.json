@@ -1,0 +1,21 @@
+{
+    "logs": {
+        "commander": {
+            "start": "🌠 ~bold.rgb(40, 42, 54).bgRgb(66, 135, 245){ starting | {{method}} | {{date}} }",
+            "end": "👏 ~bold.rgb(40, 42, 54).bgRgb(66, 135, 245){ ending | {{method}} | {{date}} }"
+        },
+        "download-file": {
+            "start": "🚀 ~bold.rgb(40, 42, 54).bgRgb(119, 209, 191){ downloading | {{file}} | {{date}} }",
+            "end": "👍 ~bold.rgb(40, 42, 54).bgRgb(119, 209, 191){ finished | {{file}} | {{date}} }"
+        },
+        "writer": {
+            "start": "📝 ~bold.rgb(40, 42, 54).bgRgb(142, 123, 212){ {{methodName}} | {{name}} | {{date}} }",
+            "end": "📎 ~bold.rgb(40, 42, 54).bgRgb(142, 123, 212){ {{methodName}} | {{name}} | {{date}} }"
+        },
+        "unzip": "📁 ~bold.rgb(40, 42, 54).bgRgb(209, 193, 119){ {{file}} | has been unzipped | {{date}} }"
+    },
+    "progress-bar": {
+        "reading": " reading | {{filename}} | {bar}\u25A0 {percentage}% | ETA: {eta}s | {value}/{total} ",
+        "writer": " {{methodName}} | {{entity}} | {bar}\u25A0 {percentage}% | ETA: {eta}s | {value}/{total} "
+    }
+}

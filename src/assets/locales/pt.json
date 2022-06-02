@@ -1,0 +1,8 @@
+{
+    "logs": {
+        "commander": {
+            "start": "Starting - {{method}} - {{date}}",
+            "end": "Ending - {{method}} - {{date}}"
+        }
+    }
+}

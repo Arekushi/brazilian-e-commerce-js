@@ -17,7 +17,6 @@ export const deleteCreatePath = async (path: string): Promise<void> => {
 export const createPath = async (path: string): Promise<void> => {
     try {
         await fs.ensureDir(path);
-        console.log(`${path} has created with success!`);
     } catch (err) {
         console.error(err);
     }
@@ -29,7 +28,5 @@ export const deletePath = async (path: string): Promise<void> => {
 };
 
 export const deleteFile = (path: string): void => {
-    fs.remove(path, () => {
-        consola.info(`${path} has deleted with success!`);
-    });
+    fs.remove(path, () => {});
 };

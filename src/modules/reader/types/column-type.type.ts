@@ -6,4 +6,4 @@ const dataTypes = [
     'BOOLEAN'
 ] as const;
 
-export type DataType = typeof dataTypes[number];
+export type ColumnType = typeof dataTypes[number];

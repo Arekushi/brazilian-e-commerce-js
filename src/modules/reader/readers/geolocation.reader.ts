@@ -9,7 +9,7 @@ export class GeolocationReader extends ReaderCSV<GeolocationCSV> {
     constructor() {
         super({
             filename: 'olist_geolocation_dataset.csv',
-            header: {
+            columns: {
                 geolocation_zip_code_prefix: 'STRING',
                 geolocation_lat: 'FLOAT',
                 geolocation_lng: 'FLOAT',

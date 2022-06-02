@@ -9,7 +9,7 @@ export class OrderPaymentReader extends ReaderCSV<OrderPaymentCSV> {
     constructor() {
         super({
             filename: 'olist_order_payments_dataset.csv',
-            header: {
+            columns: {
                 order_id: 'STRING',
                 payment_sequential: 'INT',
                 payment_type: 'STRING',

@@ -20,17 +20,25 @@ export class GeolocationCommander extends Commander {
     }
 
     @Command({
+        command: 'init:geolocation',
+        describe: 'Read, create and update Geolocation from CSV',
+    })
+    @UseAspect(Advice.Before, LogCommandAspect)
+    @UseAspect(Advice.After, LogCommandAspect)
+    async init(): Promise<void> {
+        await this.create();
+        await this.updateName();
+    }
+
+    @Command({
         command: 'create:geolocation',
         describe: 'Read and create Geolocation from CSV',
     })
     @UseAspect(Advice.Before, LogCommandAspect)
     @UseAspect(Advice.After, LogCommandAspect)
     async create(): Promise<void> {
-        console.log('Lendo geolocations...');
         const geolocations = await this.reader.read();
-
-        console.log('Vamos inserir...');
-        await this.writer.write(geolocations);
+        await this.writer.create(geolocations);
     }
 
     @Command({

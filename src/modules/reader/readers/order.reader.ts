@@ -9,7 +9,7 @@ export class OrderReader extends ReaderCSV<OrderCSV> {
     constructor() {
         super({
             filename: 'olist_orders_dataset.csv',
-            header: {
+            columns: {
                 order_id: 'STRING',
                 customer_id: 'STRING',
                 order_status: 'STRING',

@@ -1,10 +1,10 @@
-import { HeaderConfig } from '@reader/types/header.type';
+import { Column } from '@reader/types/column.type';
 import { Options } from 'csv-parse';
 
 
 export interface ReaderCSVProps {
     filename: string;
-    header: HeaderConfig;
+    columns: Column;
     options?: Options;
     filePath?: string;
 }

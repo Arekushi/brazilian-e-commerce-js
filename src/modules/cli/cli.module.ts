@@ -5,6 +5,7 @@ import { ReaderModule } from '@reader/reader.module';
 import { WriterModule } from '@writer/writer.module';
 import { GeolocationCommander } from '@cli/commanders/geolocation.commander';
 import { DatasetsCommander } from '@cli/commanders/datasets.commander';
+import { ProductCommander } from '@cli/commanders/product.commander';
 
 
 @Module({
@@ -16,7 +17,8 @@ import { DatasetsCommander } from '@cli/commanders/datasets.commander';
     controllers: [],
     providers: [
         GeolocationCommander,
-        DatasetsCommander
+        DatasetsCommander,
+        ProductCommander
     ],
 })
 export class CLIModule {}

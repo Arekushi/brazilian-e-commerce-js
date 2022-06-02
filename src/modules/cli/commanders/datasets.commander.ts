@@ -14,8 +14,8 @@ import { Injectable } from '@nestjs/common';
 export class DatasetsCommander extends Commander {
 
     constructor(
-        public requester: RequesterService,
-        public unzip: UnzipService
+        private readonly requester: RequesterService,
+        private readonly unzip: UnzipService
     ) {
         super('datasets');
     }

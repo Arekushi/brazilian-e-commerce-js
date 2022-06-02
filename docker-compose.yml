@@ -8,7 +8,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - /data:/var/lib/postgresql/data
+      - postgresdb:/var/lib/postgresql/data
     networks:
       - postgres-compose-network
       
@@ -27,3 +27,6 @@ services:
 networks: 
   postgres-compose-network:
     driver: bridge
+
+volumes:
+  postgresdb: 

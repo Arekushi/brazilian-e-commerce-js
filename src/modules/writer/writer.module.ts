@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 
 import { MainModule } from '@main/main.module';
 import { GeolocationWriter } from '@writer/writers/geolocation.writer';
+import { ProductWriter } from '@writer/writers/product.writer';
 
 
 @Module({
@@ -10,10 +11,12 @@ import { GeolocationWriter } from '@writer/writers/geolocation.writer';
     ],
     controllers: [],
     providers: [
-        GeolocationWriter
+        GeolocationWriter,
+        ProductWriter
     ],
     exports: [
-        GeolocationWriter
+        GeolocationWriter,
+        ProductWriter
     ]
 })
 export class WriterModule {}

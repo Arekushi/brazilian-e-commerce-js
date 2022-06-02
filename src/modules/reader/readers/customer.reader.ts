@@ -9,7 +9,7 @@ export class CustomerReader extends ReaderCSV<CustomerCSV> {
     constructor() {
         super({
             filename: 'olist_customers_dataset.csv',
-            header: {
+            columns: {
                 customer_id: 'STRING',
                 customer_unique_id: 'STRING',
                 customer_zip_code_prefix: 'STRING',

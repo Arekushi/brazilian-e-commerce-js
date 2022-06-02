@@ -9,7 +9,7 @@ export class OrderReviewReader extends ReaderCSV<OrderReviewCSV> {
     constructor() {
         super({
             filename: 'olist_order_reviews_dataset.csv',
-            header: {
+            columns: {
                 review_id: 'STRING',
                 order_id: 'STRING',
                 review_score: 'INT',

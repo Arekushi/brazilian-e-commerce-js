@@ -7,7 +7,7 @@ export class BrazilCitiesReader extends ReaderCSV<BrazilCitiesCSV> {
     constructor() {
         super({
             filename: 'BRAZIL_CITIES_REV2022.csv',
-            header: {
+            columns: {
                 city: 'STRING'
             }
         });

@@ -4,10 +4,11 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 
 import { MainModule } from '@main/main.module';
 import { ReaderModule } from '@reader/reader.module';
-import { WriterModule } from './modules/writer/writer.module';
+import { WriterModule } from '@writer/writer.module';
 import { CLIModule } from '@cli/cli.module';
 import { MorganInterceptor, MorganModule } from 'nest-morgan';
 import { CommandModule } from 'nestjs-command';
+import { locale } from '@src/locale';
 
 const ENV = process.env.NODE_ENV;
 
@@ -18,11 +19,11 @@ const ENV = process.env.NODE_ENV;
         ReaderModule,
         WriterModule,
         MorganModule,
+        CommandModule,
         ConfigModule.forRoot({
             isGlobal: true,
             envFilePath: !ENV ? '.env' : `.env.${ENV}`,
         }),
-        CommandModule,
     ],
     controllers: [],
     providers: [
@@ -32,4 +33,9 @@ const ENV = process.env.NODE_ENV;
         },
     ],
 })
-export class AppModule {}
+export class AppModule {
+
+    constructor() {
+        locale();
+    }
+}

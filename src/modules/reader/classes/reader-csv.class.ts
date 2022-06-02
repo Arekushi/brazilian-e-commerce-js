@@ -9,6 +9,11 @@ import { hasValue } from '@core/utils/array.util';
 import { ReaderCSVProps } from '@reader/props/reader-csv.props';
 import { UseAspect, Advice } from '@arekushii/ts-aspect';
 import { ExceptionActionAspect } from '@core/aspects/exception-action.aspect';
+import { SingleBar } from 'cli-progress';
+import { readingBar } from '@core/default/bar.default';
+import { StartBarAspect } from '@reader/aspects/start-bar.aspect';
+import { StopBarAspect } from '@core/aspects/stop-bar.aspect';
+import { IncrementBarAspect } from '@core/aspects/increment-bar.aspect';
 
 
 export abstract class ReaderCSV<T> {
@@ -22,15 +27,21 @@ export abstract class ReaderCSV<T> {
     #booleans: string[];
 
     #props: ReaderCSVProps;
+    #bar: SingleBar;
 
     get items(): T[] {
         return this.#items;
+    }
+
+    get bar(): SingleBar {
+        return this.#bar;
     }
 
     constructor(
         protected props: ReaderCSVProps,
     ) {
         this.#props = props;
+        this.#bar = readingBar(this.#props.filename);
 
         this.#items = [];
         this.#headers = [];
@@ -43,7 +54,7 @@ export abstract class ReaderCSV<T> {
     }
 
     setup(): void {
-        Object.entries(this.#props.header).forEach(([key, value]) => {
+        Object.entries(this.#props.columns).forEach(([key, value]) => {
             this.#headers.push(key);
 
             switch (value) {
@@ -81,30 +92,38 @@ export abstract class ReaderCSV<T> {
                 resolve(this.#items);
             });
         } else {
-            return new Promise((resolve, reject) => {
-                this.getReadStream()
-                    .pipe(parse(this.#props.options))
-                    .on('data', (data) => {
-                        this.data(data);
-                    })
-                    .on('end', () => {
-                        this.end(resolve);
-                    })
-                    .on('error', err => {
-                        this.error(reject, err);
-                    });
-            });
+            return this.readPromise();
         }
     }
 
+    @UseAspect(Advice.Before, StartBarAspect)
+    private async readPromise(): Promise<T[]> {
+        return new Promise((resolve, reject) => {
+            this.getReadStream()
+                .pipe(parse(this.#props.options))
+                .on('data', (data) => {
+                    this.data(data);
+                })
+                .on('end', () => {
+                    this.end(resolve);
+                })
+                .on('error', err => {
+                    this.error(reject, err);
+                });
+        });
+    }
+
+    @UseAspect(Advice.Before, IncrementBarAspect)
     data(data: T): void {
         this.#items.push(data);
     }
 
+    @UseAspect(Advice.Before, StopBarAspect)
     end(resolve: any): void {
         resolve(this.#items);
     }
 
+    @UseAspect(Advice.Before, StopBarAspect)
     error(reject: any, err: Error): void {
         reject(err);
     }
@@ -113,19 +132,19 @@ export abstract class ReaderCSV<T> {
         const column = String(context.column);
 
         if (this.#integers.includes(column)) {
-            return parseInt(value, 10);
+            return parseInt(value, 10) || 0;
         }
 
         if (this.#floats.includes(column)) {
-            return parseFloat(value);
+            return parseFloat(value)|| 0;
         }
 
         if (this.#dates.includes(column)) {
-            return new Date(value);
+            return new Date(value) || value;
         }
 
         if (this.#booleans.includes(column)) {
-            return toBoolean(value);
+            return toBoolean(value) || false;
         }
 
         return value;
@@ -138,5 +157,10 @@ export abstract class ReaderCSV<T> {
 
     getFilePath(): string {
         return `${appRoot}/${this.#props.filePath}/${this.#props.filename}`;
+    }
+
+    getLength(): number {
+        const buffer = fs.readFileSync(this.getFilePath(), 'utf8');
+        return buffer.split('\n').length - 2;
     }
 }
