@@ -12,7 +12,7 @@ export class LogCommandAspect implements Aspect {
     execute(ctx: AspectContext): void {
         const advice = ctx.advice;
         const commander: Commander = ctx.target;
-        const commanderName = commander.name;
+        const commanderName = Case.kebab(commander.name).toLocaleLowerCase();
         const methodName = Case.kebab(ctx.methodName);
         const date = new Date().toLocaleTimeString();
         const suffix = this.getSuffix(advice);

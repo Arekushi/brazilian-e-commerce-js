@@ -1,10 +1,10 @@
+import { Command } from 'nestjs-command';
+import { Injectable } from '@nestjs/common';
 import { LogCommandAspect } from '@cli/aspects/log-command.aspect';
 import { Advice, UseAspect } from '@arekushii/ts-aspect';
 import { BrazilCitiesReader } from '@reader/readers/brazil-cities.reader';
 import { GeolocationReader } from '@reader/readers/geolocation.reader';
 import { GeolocationWriter } from '@writer/writers/geolocation.writer';
-import { Injectable } from '@nestjs/common';
-import { Command } from 'nestjs-command';
 import { Commander } from '@cli/classes/commander.class';
 
 

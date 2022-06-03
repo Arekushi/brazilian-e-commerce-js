@@ -1,10 +1,10 @@
 import { Command } from 'nestjs-command';
+import { Injectable } from '@nestjs/common';
 import { LogCommandAspect } from '@cli/aspects/log-command.aspect';
 import { UseAspect, Advice } from '@arekushii/ts-aspect';
 import { Commander } from '@cli/classes/commander.class';
 import { ProductWriter } from '@writer/writers/product.writer';
 import { ProductReader } from '@reader/readers/product.reader';
-import { Injectable } from '@nestjs/common';
 import { ProductCSV } from '@reader/interfaces/product.csv.interface';
 
 

@@ -12,24 +12,25 @@ datasource db {
 
 // [Models]
 model Geolocation {
-  id              Int    @id @default(autoincrement())
-  zip_code_prefix String @db.Char(5)
-  city            String @db.VarChar(255)
-  state           String @db.Char(2)
+  id              Int     @id @default(autoincrement())
+  zip_code_prefix String  @db.Char(5)
+  city            String? @db.VarChar(255)
+  city_codename   String  @db.VarChar(255)
+  state           String  @db.Char(2)
   latitude        Float?
   longitude       Float?
 
   customers Customer[]
   sellers   Seller[]
 
+  @@unique([zip_code_prefix, city_codename, state])
   @@map("geolocation")
 }
 
 model Customer {
-  id        String  @id @db.Char(32)
-  unique_id String  @unique @db.Char(32)
-  name      String? @db.VarChar(255)
-  orders    Order[]
+  id     String  @id @db.Char(32)
+  name   String? @db.VarChar(255)
+  orders Order[]
 
   geolocation    Geolocation? @relation(fields: [geolocation_id], references: [id])
   geolocation_id Int?
@@ -58,7 +59,6 @@ model ProductCategory {
 
 model Product {
   id                 String      @id @db.Char(32)
-  name               String?     @db.VarChar(255)
   name_lenght        Int?
   description_lenght Int?
   photos_quantity    Int?
@@ -74,24 +74,9 @@ model Product {
   @@map("product")
 }
 
-model OrderStatus {
-  id          Int     @id @default(autoincrement())
-  description String  @db.VarChar(100)
-  orders      Order[]
-
-  @@map("order_status")
-}
-
-model PaymentType {
-  id       Int            @id @default(autoincrement())
-  type     String         @db.VarChar(100)
-  payments OrderPayment[]
-
-  @@map("payment_type")
-}
-
 model Order {
   id                      String    @id @db.Char(32)
+  status                  String    @db.VarChar(255)
   purchase_timestamp      DateTime
   approved_at             DateTime?
   delivered_carrier_date  DateTime?
@@ -101,11 +86,8 @@ model Order {
   customer    Customer @relation(fields: [customer_id], references: [id])
   customer_id String   @db.Char(32)
 
-  status    OrderStatus @relation(fields: [status_id], references: [id])
-  status_id Int
-
-  review  OrderReview?
-  payment OrderPayment?
+  review  OrderReview[]
+  payment OrderPayment[]
   items   OrderItem[]
 
   @@map("order")
@@ -120,28 +102,27 @@ model OrderReview {
   answer_date     DateTime?
 
   order    Order  @relation(fields: [order_id], references: [id])
-  order_id String @unique
+  order_id String
 
   @@map("order_review")
 }
 
 model OrderPayment {
-  id           String @id @db.Char(32)
+  id           Int    @id @default(autoincrement())
+  type         String @db.VarChar(255)
   sequential   Int
   installments Int
   value        Float
 
-  type    PaymentType @relation(fields: [type_id], references: [id])
-  type_id Int
-
   order    Order  @relation(fields: [order_id], references: [id])
-  order_id String @unique @db.Char(32)
+  order_id String @db.Char(32)
 
   @@map("order_payment")
 }
 
 model OrderItem {
-  id                  String   @id @db.Char(32)
+  id                  Int      @id @default(autoincrement())
+  order_item_id       Int      @db.Integer
   shipping_limit_date DateTime
   price               Float
   freight_value       Float

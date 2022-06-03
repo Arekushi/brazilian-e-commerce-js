@@ -10,10 +10,4 @@ export abstract class Service {
         this.prisma = prisma;
         this.name = name;
     }
-
-    async createMany(data: any[], skipDuplicates = false): Promise<void> {
-        await this.prisma[this.name].createMany({
-            data, skipDuplicates
-        });
-    }
 }

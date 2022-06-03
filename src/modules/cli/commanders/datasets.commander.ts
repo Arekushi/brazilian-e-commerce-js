@@ -21,6 +21,16 @@ export class DatasetsCommander extends Commander {
     }
 
     @Command({
+        command: 'init:datasets',
+        describe: 'Initilize download of datasets',
+    })
+    @UseAspect(Advice.Before, LogCommandAspect)
+    @UseAspect(Advice.After, LogCommandAspect)
+    async init(): Promise<void> {
+        await this.download();
+    }
+
+    @Command({
         command: 'download:datasets',
         describe: 'Download the necessary datasets and place them in the datasets folder',
     })

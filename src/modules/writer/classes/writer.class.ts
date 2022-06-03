@@ -1,6 +1,5 @@
-import { Service } from '@core/classes/service.class';
+import { PrismaService } from '@core/services/prisma.service';
 import { Advice, UseAspect } from '@arekushii/ts-aspect';
-import { CheckDataAspect } from '@writer/aspects/check-data.aspect';
 import { LogWriterAspect } from '@writer/aspects/log-writer.aspect';
 import { SingleBar } from 'cli-progress';
 
@@ -11,10 +10,10 @@ export abstract class Writer<T> {
     bar: SingleBar;
 
     constructor(
-        protected readonly service: Service,
+        protected readonly prisma: PrismaService,
         public readonly name: string
     ) {
-        this.service = service;
+        this.prisma = prisma;
         this.name = name;
         this.data = [];
     }
@@ -22,9 +21,11 @@ export abstract class Writer<T> {
     abstract map(items: T[]): any[];
 
     @UseAspect(Advice.Before, LogWriterAspect)
-    @UseAspect(Advice.Before, CheckDataAspect)
     @UseAspect(Advice.After, LogWriterAspect)
-    async create(items?: T[]): Promise<void> {
-        await this.service.createMany(this.data, true);
+    async create(items?: T[], skipDuplicates = true): Promise<void> {
+        await this.prisma[this.name].createMany({
+            data: this.map(items),
+            skipDuplicates
+        });
     };
 }

@@ -52,6 +52,7 @@
         "morgan": "^1.10.0",
         "nest-morgan": "^2.0.0",
         "nestjs-command": "^3.1.1",
+        "node-random-name": "^1.0.1",
         "prisma": "^3.14.0",
         "reflect-metadata": "^0.1.13",
         "remove-accents": "^0.4.2",

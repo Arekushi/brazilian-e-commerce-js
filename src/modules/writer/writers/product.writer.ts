@@ -1,7 +1,7 @@
 import { StartBarAspect } from '@writer/aspects/start-bar.aspect';
 import { StopBarAspect } from '@core/aspects/stop-bar.aspect';
 import { Advice, UseAspect } from '@arekushii/ts-aspect';
-import { ProductService } from '@main/services/product.service';
+import { PrismaService } from '@core/services/prisma.service';
 import { ProductCSV } from '@reader/interfaces/product.csv.interface';
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
@@ -12,9 +12,9 @@ import { Writer } from '@writer/classes/writer.class';
 export class ProductWriter extends Writer<ProductCSV> {
 
     constructor(
-        service: ProductService
+        prisma: PrismaService
     ) {
-        super(service, 'product');
+        super(prisma, 'product');
     }
 
     map(
@@ -41,7 +41,7 @@ export class ProductWriter extends Writer<ProductCSV> {
         const map = this.getCategoryMap(items);
 
         for (const [key, value] of map) {
-            await this.service.prisma.productCategory.create({
+            await this.prisma.productCategory.create({
                 data: {
                     name: key,
                     products: {
@@ -70,7 +70,7 @@ export class ProductWriter extends Writer<ProductCSV> {
 
                 obj[item.product_category_name].push(
                     {
-                        id: String(item.product_id)
+                        id: item.product_id
                     }
                 );
 

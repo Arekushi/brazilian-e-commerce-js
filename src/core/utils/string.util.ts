@@ -1,3 +1,6 @@
+import removeAccents from 'remove-accents';
+
+
 export const toArray = (str: string): any[] => {
     return str as unknown as any[];
 };
@@ -16,4 +19,8 @@ export const onlyAlpha =(str: string): string => {
 
 export const onlyNumbers = (str: string): string => {
     return str.replace(/\D/g, '');
+};
+
+export const rawString = (str: string): string => {
+    return onlyAlpha(removeAccents(str)).toLocaleLowerCase();
 };

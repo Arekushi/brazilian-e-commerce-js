@@ -11,7 +11,7 @@ export class OrderItemReader extends ReaderCSV<OrderItemCSV> {
             filename: 'olist_order_items_dataset.csv',
             columns: {
                 order_id: 'STRING',
-                order_item_id: 'STRING',
+                order_item_id: 'INT',
                 product_id: 'STRING',
                 seller_id: 'STRING',
                 shipping_limit_date: 'DATE',
