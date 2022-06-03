@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 
-import { MainModule } from '@main/main.module';
 import { ReaderModule } from '@reader/reader.module';
 import { WriterModule } from '@writer/writer.module';
 import { CLIModule } from '@cli/cli.module';
@@ -15,7 +14,6 @@ const ENV = process.env.NODE_ENV;
 @Module({
     imports: [
         CLIModule,
-        MainModule,
         ReaderModule,
         WriterModule,
         MorganModule,
