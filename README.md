@@ -13,7 +13,7 @@
 </p>
 
 ## About The Project
-Project of the discipline `Integrator Project` of the third semester of the course of [`Technology in Big Data for Business`][big_data_course] at [`FATEC Ipiranga`][fatec_ipiranga]. Supervised by [Antonio Guardado][guardado].
+Project of the discipline `Projeto Integrador (Integrator Project)` of the 3º semester of the course of [`Technology in Big Data for Business`][big_data_course] at [`FATEC Ipiranga`][fatec_ipiranga]. Supervised by [`Antonio Guardado`](mailto:antonio.guardado01@fatec.sp.gov.br).
 
 ### Portuguese description
 A ideia do projeto é fazer a realização de análises sobre uma determinada base de dados e fazer uma apresentação visual dos resultados encontrados.
@@ -96,7 +96,6 @@ Here is a dictionary of data in a simple Notion document about entities, their a
 [typescript4]: https://www.typescriptlang.org/
 
 <!-- [Some links] -->
-[guardado]: antonio.guardado01@fatec.sp.gov.br
 [schema]: https://arekushi.notion.site/Schema-050137d1ccdf4713a2e0c84cda16d9b7
 [dataset]: https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 [fatec_ipiranga]: https://fatecipiranga.edu.br/
