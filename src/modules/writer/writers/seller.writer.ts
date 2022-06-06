@@ -9,6 +9,8 @@ import { SellerCSV } from '@reader/interfaces/seller.csv.interface';
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { Writer } from '@writer/classes/writer.class';
+import { randomGender } from '@core/utils/random.util';
+import { randomDate } from '@core/utils/date.util';
 
 
 @Injectable()
@@ -27,6 +29,8 @@ export class SellerWriter extends Writer<SellerCSV> {
             return {
                 id: c.seller_id,
                 name: random_name({ seed: c.seller_id }),
+                birth_date: randomDate(new Date(1982, 1, 1), new Date(2005, 1, 1), c.seller_id),
+                gender: randomGender(c.seller_id)
             };
         });
     }

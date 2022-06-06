@@ -9,6 +9,8 @@ import { CustomerCSV } from '@reader/interfaces/customer.csv.interface';
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { Writer } from '@writer/classes/writer.class';
+import { randomDate } from '@core/utils/date.util';
+import { randomGender } from '@core/utils/random.util';
 
 
 @Injectable()
@@ -26,7 +28,9 @@ export class CustomerWriter extends Writer<CustomerCSV> {
         return items.map((c) => {
             return {
                 id: c.customer_id,
-                name: random_name({ seed: c.customer_id })
+                name: random_name({ seed: c.customer_id }),
+                birth_date: randomDate(new Date(1982, 1, 1), new Date(2005, 1, 1), c.customer_id),
+                gender: randomGender(c.customer_id)
             };
         });
     }

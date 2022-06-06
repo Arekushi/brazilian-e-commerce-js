@@ -1,0 +1,132 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Project "Brazilian-E-Commerce" {
+  database_type: 'PostgreSQL'
+  Note: ''
+}
+
+Table geolocation {
+  id Int [pk, increment]
+  zip_code_prefix String [not null]
+  city String
+  city_codename String [not null]
+  state String [not null]
+  latitude Float
+  longitude Float
+  customers customer [not null]
+  sellers seller [not null]
+
+  indexes {
+    (zip_code_prefix, city_codename, state) [unique]
+  }
+}
+
+Table customer {
+  id String [pk]
+  name String
+  gender String
+  birth_date DateTime
+  orders order [not null]
+  geolocation geolocation
+  geolocation_id Int
+}
+
+Table seller {
+  id String [pk]
+  name String
+  gender String
+  birth_date DateTime
+  orders order_item [not null]
+  geolocation geolocation
+  geolocation_id Int
+}
+
+Table product_category {
+  id Int [pk, increment]
+  name String [unique]
+  products product [not null]
+}
+
+Table product {
+  id String [pk]
+  name_lenght Int
+  description_lenght Int
+  photos_quantity Int
+  weight_g Float
+  length_cm Float
+  height_cm Float
+  width_cm Float
+  orders order_item [not null]
+  product_category product_category
+  product_category_id Int
+}
+
+Table order {
+  id String [pk]
+  status String [not null]
+  purchase_timestamp DateTime [not null]
+  approved_at DateTime
+  delivered_carrier_date DateTime
+  delivered_customer_date DateTime
+  estimated_delivery_date DateTime
+  customer customer [not null]
+  customer_id String [not null]
+  review order_review [not null]
+  payment order_payment [not null]
+  items order_item [not null]
+}
+
+Table order_review {
+  id String [pk]
+  score Int [not null]
+  comment_title String
+  comment_message String
+  creation_date DateTime [not null]
+  answer_date DateTime
+  order order [not null]
+  order_id String [not null]
+}
+
+Table order_payment {
+  id Int [pk, increment]
+  type String [not null]
+  sequential Int [not null]
+  installments Int [not null]
+  value Float [not null]
+  order order [not null]
+  order_id String [not null]
+}
+
+Table order_item {
+  id Int [pk, increment]
+  order_item_id Int [not null]
+  shipping_limit_date DateTime [not null]
+  price Float [not null]
+  freight_value Float [not null]
+  order order [not null]
+  order_id String [not null]
+  product product [not null]
+  product_id String [not null]
+  seller seller [not null]
+  seller_id String [not null]
+}
+
+Ref: customer.geolocation_id > geolocation.id
+
+Ref: seller.geolocation_id > geolocation.id
+
+Ref: product.product_category_id > product_category.id
+
+Ref: order.customer_id > customer.id
+
+Ref: order_review.order_id > order.id
+
+Ref: order_payment.order_id > order.id
+
+Ref: order_item.order_id > order.id
+
+Ref: order_item.product_id > product.id
+
+Ref: order_item.seller_id > seller.id

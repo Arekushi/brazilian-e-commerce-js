@@ -5,6 +5,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator dbml {
+  provider            = "prisma-dbml-generator"
+  projectDatabaseType = "PostgreSQL"
+  projectName         = "Brazilian-E-Commerce"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -28,9 +34,11 @@ model Geolocation {
 }
 
 model Customer {
-  id     String  @id @db.Char(32)
-  name   String? @db.VarChar(255)
-  orders Order[]
+  id         String    @id @db.Char(32)
+  name       String?   @db.VarChar(255)
+  gender     String?   @db.Char(1)
+  birth_date DateTime? @db.Date
+  orders     Order[]
 
   geolocation    Geolocation? @relation(fields: [geolocation_id], references: [id])
   geolocation_id Int?
@@ -39,9 +47,11 @@ model Customer {
 }
 
 model Seller {
-  id     String      @id @db.Char(32)
-  name   String?     @db.VarChar(255)
-  orders OrderItem[]
+  id         String      @id @db.Char(32)
+  name       String?     @db.VarChar(255)
+  gender     String?     @db.Char(1)
+  birth_date DateTime?   @db.Date
+  orders     OrderItem[]
 
   geolocation    Geolocation? @relation(fields: [geolocation_id], references: [id])
   geolocation_id Int?
@@ -102,7 +112,7 @@ model OrderReview {
   answer_date     DateTime?
 
   order    Order  @relation(fields: [order_id], references: [id])
-  order_id String
+  order_id String @db.Char(32)
 
   @@map("order_review")
 }
