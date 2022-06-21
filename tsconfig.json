@@ -11,7 +11,7 @@
       "@main/*": ["./src/modules/main/*"],
       "@reader/*": ["./src/modules/reader/*"],
       "@writer/*": ["./src/modules/writer/*"],
-      "@cli/*": ["src/modules/cli/*"]
+      "@cli/*": ["./src/modules/cli/*"]
     },
     "module": "CommonJS",
     "target": "ES2017",
